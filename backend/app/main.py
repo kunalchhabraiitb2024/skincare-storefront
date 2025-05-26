@@ -11,7 +11,6 @@ import os
 from dotenv import load_dotenv
 import time
 
-# Load environment variables
 load_dotenv()
 
 # Initialize FastAPI app
@@ -20,7 +19,7 @@ app = FastAPI(title="Skincare Store API")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with your frontend URL
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,28 +28,22 @@ app.add_middleware(
 # Initialize Gemini
 try:
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-    # Use the flash model which has better free tier limits
     model = genai.GenerativeModel('gemini-1.5-flash')
     print("Successfully initialized Gemini model: gemini-1.5-flash")
 except Exception as e:
     print(f"Error initializing Gemini: {e}")
     model = None
 
-# Initialize ChromaDB
 try:
-    # Use absolute path for ChromaDB
     base_dir = Path(__file__).parent.parent
     chroma_dir = base_dir / "data" / "chroma_db"
     print(f"Using ChromaDB directory: {chroma_dir.absolute()}")
     
-    # Ensure the directory exists
     chroma_dir.mkdir(parents=True, exist_ok=True)
     
-    # Use PersistentClient
     chroma_client = chromadb.PersistentClient(path=str(chroma_dir.absolute()))
     
-    # Add a small delay to ensure persistence is ready (workaround)
-    time.sleep(5) # Increased wait to 5 seconds
+    time.sleep(5)
 
     # Get the collection
     try:
@@ -69,29 +62,11 @@ except Exception as e:
 # Load product catalog
 def load_catalog():
     try:
-        print("\n=== Loading Catalog ===")
         df = pd.read_excel("data/skincare catalog.xlsx")
-        print(f"DataFrame shape: {df.shape}")
-        print(f"Columns: {df.columns.tolist()}")
         
-        # Check price column before conversion
-        print("\nPrice column before conversion:")
-        print(df['price (USD)'].head())
-        print(f"Price column dtype: {df['price (USD)'].dtype}")
-        
-        # Convert price column to numeric, handling any non-numeric values
         df['price (USD)'] = pd.to_numeric(df['price (USD)'], errors='coerce')
-        
-        # Check price column after conversion
-        print("\nPrice column after conversion:")
-        print(df['price (USD)'].head())
-        print(f"Price column dtype: {df['price (USD)'].dtype}")
-        print(f"Number of NaN values: {df['price (USD)'].isna().sum()}")
-        
-        # Convert to records and check first few
+
         records = df.to_dict('records')
-        print("\nFirst record:")
-        print(records[0] if records else "No records")
         
         return records
     except Exception as e:
