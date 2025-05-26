@@ -33,7 +33,7 @@ interface ProductCardProps {
     product: Product;
 }
 
-const BACKEND_URL = 'http://localhost:8001';
+const BACKEND_URL = 'https://skincare-storefront.onrender.com';
 
 export default function Home() {
   const [query, setQuery] = useState('');

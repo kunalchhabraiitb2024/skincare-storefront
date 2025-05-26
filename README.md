@@ -2,6 +2,11 @@
 
 An intelligent skincare store that uses AI to provide personalized product recommendations and answer skincare-related questions.
 
+## Live Demo
+
+- Frontend: [https://skincare-storefront.vercel.app](https://skincare-storefront.vercel.app)
+- Backend API: [https://skincare-storefront.onrender.com](https://skincare-storefront.onrender.com)
+
 ## Features
 
 - Natural language search for skincare products
@@ -37,14 +42,14 @@ GOOGLE_API_KEY=your_gemini_api_key
 
 ### Frontend (.env.local)
 ```
-NEXT_PUBLIC_BACKEND_URL=your_backend_url
+NEXT_PUBLIC_BACKEND_URL=https://skincare-storefront.onrender.com
 ```
 
 ## Quick Start
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/skincare-storefront.git
+git clone https://github.com/kunalchhabraiitb2024/skincare-storefront.git
 cd skincare-storefront
 ```
 
@@ -86,7 +91,7 @@ npm run dev
 2. Connect your GitHub repository
 3. Set the following:
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - Start Command: `cd backend && python wsgi.py`
 4. Add environment variables:
    - `GOOGLE_API_KEY`
 
@@ -104,12 +109,13 @@ npm run dev
 skincare-storefront/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py
-│   │   └── process_docs.py
+│   │   ├── __init__.py
+│   │   └── main.py
 │   ├── data/
 │   │   ├── chroma_db/
 │   │   └── skincare catalog.xlsx
-│   └── requirements.txt
+│   ├── requirements.txt
+│   └── wsgi.py
 └── frontend/
     ├── app/
     │   ├── components/
@@ -118,6 +124,12 @@ skincare-storefront/
     ├── public/
     └── package.json
 ```
+
+## API Endpoints
+
+- `GET /` - API health check
+- `GET /products` - Get all products
+- `POST /search` - Search products with conversational interface
 
 ## Next Steps
 
