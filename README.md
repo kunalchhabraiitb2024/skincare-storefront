@@ -103,7 +103,7 @@ npm run dev
    - `NEXT_PUBLIC_BACKEND_URL`
 4. Deploy
 
-## Project Structure
+## Key Project Structure
 
 ```
 skincare-storefront/
@@ -111,14 +111,19 @@ skincare-storefront/
 │   ├── app/
 │   │   ├── __init__.py
 │   │   └── main.py
+|   |   └── process_docs.py
 │   ├── data/
 │   │   ├── chroma_db/
 │   │   └── skincare catalog.xlsx
+|   |   └── Additional info (brand, reviews, customer tickets).docx
 │   ├── requirements.txt
 │   └── wsgi.py
+|   └── setup.py
 └── frontend/
     ├── app/
     │   ├── components/
+    |          ├── ProductCard.tsx
+    |          ├── SearchBar.tsx
     │   ├── page.tsx
     │   └── layout.tsx
     ├── public/
