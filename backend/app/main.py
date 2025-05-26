@@ -126,8 +126,8 @@ def classify_query(query: str) -> str:
         try:
             prompt = f"""
             Classify the following user query as either 'QUESTION' or 'RECOMMENDATION'.
-            If the query is asking about a specific product or seeking information, classify as 'QUESTION'.
-            If the query is asking for product recommendations or suggestions, classify as 'RECOMMENDATION'.
+            If the query is asking about specific products, seeking information, or asking for a list of products, classify as 'QUESTION'.
+            If the query is asking for personalized recommendations based on specific needs, classify as 'RECOMMENDATION'.
             Respond with only the word 'QUESTION' or 'RECOMMENDATION'.
 
             Query: "{query}"
@@ -144,8 +144,17 @@ def classify_query(query: str) -> str:
 
     # Fallback to keyword check if LLM is not available or fails
     query_lower = query.lower()
-    question_keywords = ['what is', 'how is', 'tell me about', 'explain', 'define', 'why', 'can you explain', '?', 'will', 'good for', 'suitable for', 'help with']
-    recommendation_keywords = ['recommend', 'suggest', 'show me', 'find', 'products', 'for dry skin', 'serum', 'moisturizer']
+    question_keywords = [
+        'what is', 'how is', 'tell me about', 'explain', 'define', 'why', 
+        'can you explain', '?', 'will', 'good for', 'suitable for', 'help with',
+        'what are', 'can you tell me', 'list', 'show me', 'give me', 'name',
+        'suggest some', 'recommend some', 'top', 'best'
+    ]
+    recommendation_keywords = [
+        'recommend for', 'suggest for', 'find for', 'products for',
+        'for my', 'for dry skin', 'for oily skin', 'for sensitive skin',
+        'for acne', 'for wrinkles', 'for aging'
+    ]
 
     if any(keyword in query_lower for keyword in question_keywords):
         print("Keyword Classification: QUESTION")
@@ -155,8 +164,8 @@ def classify_query(query: str) -> str:
          return "RECOMMENDATION"
     else:
         # Default to recommendation if unclear
-        print("Keyword Classification: Defaulting to RECOMMENDATION")
-        return "RECOMMENDATION"
+        print("Keyword Classification: Defaulting to QUESTION")
+        return "QUESTION"
 
 def generate_answer(query: str, context: List[str]) -> str:
     """Generate an answer based on the query and context."""
