@@ -42,7 +42,7 @@ GOOGLE_API_KEY=your_gemini_api_key
 
 ### Frontend (.env.local)
 ```
-NEXT_PUBLIC_BACKEND_URL=https://skincare-storefront.onrender.com
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
 
 ## Quick Start
