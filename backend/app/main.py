@@ -358,7 +358,6 @@ def rank_products(products: List[Dict[str, Any]], query: str, context: List[str]
              print("LLM ranking failed or insufficient results, falling back to simple ranking")
              return simple_rank_products(products, query)[:5]
 
-        # Add any products that were relevant but not in the top LLM list (optional, depending on desired behavior)
         # For now, just return the LLM ranked products up to 5
         
         print("\nLLM Ranked Products (Top 5):")
