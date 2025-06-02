@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: skincare-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: |
+      cd backend && 
+      python -m app.process_docs && 
+      python wsgi.py
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: PORT
+        value: 8000 
