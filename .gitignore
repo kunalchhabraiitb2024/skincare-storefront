@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Environment variables (don't commit these!)
+.env
+.env.local
+
+# Cache files
+*.pyc
+.DS_Store
+
+# Database files
+*.sqlite3
+chroma_db/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
